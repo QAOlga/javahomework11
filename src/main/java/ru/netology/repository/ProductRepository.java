@@ -10,12 +10,14 @@ public class ProductRepository {
         Product[] plusOne = new Product[length];
         System.arraycopy(products, 0, plusOne, 0, products.length);
         int last = plusOne.length - 1;
-        plusOne[last]=product;
-        products=plusOne;
+        plusOne[last] = product;
+        products = plusOne;
     }
+
     public Product[] findAll() {
         return products;
     }
+
     public Product[] removeById(int id) {
         int length = products.length - 1;
         Product[] plusOne = new Product[length];

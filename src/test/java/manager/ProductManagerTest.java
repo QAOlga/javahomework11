@@ -17,20 +17,15 @@ public class ProductManagerTest {
     Product book1 = new Book(2, "Анна Каренина", 150, "Лев Толстой");
     Product smartphone = new Smartphone(3, "Samsung Galaxy", 20_000, "Samsung");
     Product book3 = new Book(3, "Мастер и Маргарита", 130, "Булгаков");
+    Product book4 = new Book(4, "Пятнадцатилетний капитан", 145, "Жюль Верн");
 
     @BeforeEach
-    public void SetUp() {
+    public void setUp() {
         manager.add(book);
         manager.add(book1);
         manager.add(smartphone);
         manager.add(book3);
-    }
-
-    @Test
-    public void shouldFindAuthor() {
-        Product[] expected = {book};
-        Product[] actual = manager.searchBy("Жюль Верн");
-        assertArrayEquals(expected, actual);
+        manager.add(book4);
     }
 
     @Test
@@ -46,22 +41,33 @@ public class ProductManagerTest {
         Product[] actual = manager.searchBy("Samsung Galaxy");
         assertArrayEquals(expected, actual);
     }
+
     @Test
     public void shouldFindSmartphoneManufacturer() {
         Product[] expected = {smartphone};
         Product[] actual = manager.searchBy("Samsung");
         assertArrayEquals(expected, actual);
     }
+
     @Test
     public void shouldNotFindAuthor() {
         Product[] expected = {};
         Product[] actual = manager.searchBy("Жуль верн");
         assertArrayEquals(expected, actual);
     }
+
     @Test
     public void shouldNotFindIPhone() {
         Product[] expected = {};
         Product[] actual = manager.searchBy("iPhone");
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldFindAuthor2books() {
+        manager = new ProductManager(repository);
+        Product[] expected = {book, book4};
+        Product[] actual = manager.searchBy("Жюль Верн");
         assertArrayEquals(expected, actual);
     }
 }
